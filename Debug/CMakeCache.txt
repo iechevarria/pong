@@ -234,6 +234,9 @@ csci437_BINARY_DIR:STATIC=/home/f85/iechevar/Documents/CSCI 437/pong/Debug
 //Value Computed by CMake
 csci437_SOURCE_DIR:STATIC=/home/f85/iechevar/Documents/CSCI 437/pong
 
+//Dependencies for the target
+pong_core_LIB_DEPENDS:STATIC=debug;/home/f85/iechevar/Documents/CSCI 437/SFML/lib/libsfml-graphics-d.so;optimized;/home/f85/iechevar/Documents/CSCI 437/SFML/lib/libsfml-graphics.so;debug;/home/f85/iechevar/Documents/CSCI 437/SFML/lib/libsfml-window-d.so;optimized;/home/f85/iechevar/Documents/CSCI 437/SFML/lib/libsfml-window.so;debug;/home/f85/iechevar/Documents/CSCI 437/SFML/lib/libsfml-system-d.so;optimized;/home/f85/iechevar/Documents/CSCI 437/SFML/lib/libsfml-system.so;debug;/home/f85/iechevar/Documents/CSCI 437/SFML/lib/libsfml-audio-d.so;optimized;/home/f85/iechevar/Documents/CSCI 437/SFML/lib/libsfml-audio.so;debug;/home/f85/iechevar/Documents/CSCI 437/SFML/lib/libsfml-network-d.so;optimized;/home/f85/iechevar/Documents/CSCI 437/SFML/lib/libsfml-network.so;
+
 
 ########################
 # INTERNAL cache entries

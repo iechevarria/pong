@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/f85/iechevar/Documents/CSCI 437/pong/bin/Paddle.cpp
+Paddle.hpp
+/home/f85/iechevar/Documents/CSCI 437/pong/bin/Paddle.hpp
+
+/home/f85/iechevar/Documents/CSCI 437/pong/bin/Paddle.hpp
+vector
+-
+
