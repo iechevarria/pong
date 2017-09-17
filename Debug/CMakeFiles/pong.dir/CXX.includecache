@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+../include/Paddle.hpp
+vector
+-
+
 /home/f85/iechevar/Documents/CSCI 437/SFML/include/SFML/Audio.hpp
 SFML/System.hpp
 -
@@ -824,5 +828,7 @@ cmath
 ctime
 -
 cstdlib
+-
+Paddle.hpp
 -
 

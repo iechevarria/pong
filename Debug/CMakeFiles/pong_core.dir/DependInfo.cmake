@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/f85/iechevar/Documents/CSCI 437/pong/src/pong.cpp" "/home/f85/iechevar/Documents/CSCI 437/pong/Debug/CMakeFiles/pong_core.dir/src/pong.cpp.o"
+  "/home/f85/iechevar/Documents/CSCI 437/pong/src/Paddle.cpp" "/home/f85/iechevar/Documents/CSCI 437/pong/Debug/CMakeFiles/pong_core.dir/src/Paddle.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

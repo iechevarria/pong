@@ -123,6 +123,19 @@ pong/fast:
 	$(MAKE) -f CMakeFiles/pong.dir/build.make CMakeFiles/pong.dir/build
 .PHONY : pong/fast
 
+#=============================================================================
+# Target rules for targets named pong_core
+
+# Build rule for target.
+pong_core: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pong_core
+.PHONY : pong_core
+
+# fast build rule for target.
+pong_core/fast:
+	$(MAKE) -f CMakeFiles/pong_core.dir/build.make CMakeFiles/pong_core.dir/build
+.PHONY : pong_core/fast
+
 bin/pong.o: bin/pong.cpp.o
 
 .PHONY : bin/pong.o
@@ -150,6 +163,33 @@ bin/pong.cpp.s:
 	$(MAKE) -f CMakeFiles/pong.dir/build.make CMakeFiles/pong.dir/bin/pong.cpp.s
 .PHONY : bin/pong.cpp.s
 
+src/Paddle.o: src/Paddle.cpp.o
+
+.PHONY : src/Paddle.o
+
+# target to build an object file
+src/Paddle.cpp.o:
+	$(MAKE) -f CMakeFiles/pong_core.dir/build.make CMakeFiles/pong_core.dir/src/Paddle.cpp.o
+.PHONY : src/Paddle.cpp.o
+
+src/Paddle.i: src/Paddle.cpp.i
+
+.PHONY : src/Paddle.i
+
+# target to preprocess a source file
+src/Paddle.cpp.i:
+	$(MAKE) -f CMakeFiles/pong_core.dir/build.make CMakeFiles/pong_core.dir/src/Paddle.cpp.i
+.PHONY : src/Paddle.cpp.i
+
+src/Paddle.s: src/Paddle.cpp.s
+
+.PHONY : src/Paddle.s
+
+# target to generate assembly for a file
+src/Paddle.cpp.s:
+	$(MAKE) -f CMakeFiles/pong_core.dir/build.make CMakeFiles/pong_core.dir/src/Paddle.cpp.s
+.PHONY : src/Paddle.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -159,9 +199,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... pong"
+	@echo "... pong_core"
 	@echo "... bin/pong.o"
 	@echo "... bin/pong.i"
 	@echo "... bin/pong.s"
+	@echo "... src/Paddle.o"
+	@echo "... src/Paddle.i"
+	@echo "... src/Paddle.s"
 .PHONY : help
 
 

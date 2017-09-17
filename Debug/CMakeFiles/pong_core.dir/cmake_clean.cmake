@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/pong_core.dir/src/pong.cpp.o"
+  "CMakeFiles/pong_core.dir/src/Paddle.cpp.o"
   "libpong_core.pdb"
   "libpong_core.a"
 )

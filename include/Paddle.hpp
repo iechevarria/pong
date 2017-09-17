@@ -13,7 +13,7 @@ class Paddle {
     Paddle (void) {};
     void set (int x, int y, int height, int speed);
     void move (int x);
-    std::vector<int> getPosition()
+    std::vector<int> getPosition();
 };
 
 #endif
