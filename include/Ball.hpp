@@ -15,6 +15,8 @@ class Ball {
     void set (float x, float y, float speed, float angle, int radius);
     void move (float x, float y);
     void setAngle (float angle);
+    void setX (float x);
+    void setY (float y);
     float getX ();
     float getY ();
     float getSpeed ();

@@ -651,6 +651,8 @@ SFML/Config.hpp
 /home/f85/iechevar/Documents/CSCI 437/pong/bin/pong.cpp
 SFML/Graphics.hpp
 -
+stdlib.h
+-
 Paddle.hpp
 -
 Ball.hpp

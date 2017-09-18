@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <stdlib.h>
 
 #include <Paddle.hpp>
 #include <Ball.hpp>
@@ -14,17 +15,37 @@ sf::RectangleShape makePaddleShape (Paddle paddle) {
 }
 
 void updatePaddleAI (Paddle& paddle, float ballY, int gameHeight, float deltaTime) {
-  if ((paddle.getY() > ballY - 10) &&
+  if ((paddle.getY() > ballY + 10) &&
     (paddle.getY() - paddle.getHeight() / 2 > 5.f)) {
     paddle.move(-paddle.getSpeed() * deltaTime);
-  } else if ((paddle.getY() < ballY + 10) &&
+  } else if ((paddle.getY() < ballY - 10) &&
     (paddle.getY() + paddle.getHeight() / 2 < gameHeight - 5.f)) {
     paddle.move(paddle.getSpeed() * deltaTime);
   }
 }
 
-void updateBall (Ball& ball, Paddle rightPaddle, Paddle leftPaddle, float deltaTime) {
+void updateBall (Ball& ball, Paddle leftPaddle, Paddle rightPaddle, float deltaTime, int gameWidth, int gameHeight) {
   ball.move(cos(ball.getAngle()) * ball.getSpeed() * deltaTime, sin(ball.getAngle()) * ball.getSpeed() * deltaTime);
+  if (ball.getY() - ball.getRadius() < 0) {
+    ball.setAngle(-ball.getAngle());
+    ball.setY(ball.getRadius() + 0.1);
+  } else if (ball.getY() + ball.getRadius() > gameHeight) {
+    ball.setAngle(-ball.getAngle());
+    ball.setY(ball.getY() - ball.getRadius() - 0.1);
+  }
+  if (ball.getX() - ball.getRadius() < leftPaddle.getX() + leftPaddle.getWidth() / 2 &&
+      ball.getX() - ball.getRadius() > leftPaddle.getX() &&
+      ball.getY() + ball.getRadius() >= leftPaddle.getY() - leftPaddle.getHeight() / 2 &&
+      ball.getY() - ball.getRadius() <= leftPaddle.getY() + leftPaddle.getHeight() / 2) {
+        ball.setAngle(3.14159 - ball.getAngle());
+        ball.setX(leftPaddle.getX() + ball.getRadius() + leftPaddle.getWidth() / 2  + 1);
+  } else if (ball.getX() + ball.getRadius() > rightPaddle.getX() - rightPaddle.getWidth() / 2 &&
+             ball.getX() + ball.getRadius() < rightPaddle.getX() &&
+             ball.getY() + ball.getRadius() >= rightPaddle.getY() - rightPaddle.getHeight() / 2 &&
+             ball.getY() - ball.getRadius() <= rightPaddle.getY() + rightPaddle.getHeight() / 2) {
+        ball.setAngle(3.14159 - ball.getAngle());
+        ball.setX(rightPaddle.getX() - ball.getRadius() - rightPaddle.getWidth() / 2 - 1);
+  }
 }
 
 int main(int argc, char** argv) {
@@ -43,7 +64,7 @@ int main(int argc, char** argv) {
 
   // make ball, ball shapes
   Ball ball;
-  ball.set(gameWidth / 2, gameHeight / 2, 800.f, 0.1, 5);
+  ball.set(gameWidth / 2, gameHeight / 2, 400.f, 3, 5);
   sf::CircleShape ballShape;
   ballShape.setRadius(ball.getRadius());
   ballShape.setOrigin(ball.getRadius(), ball.getRadius());
@@ -81,7 +102,7 @@ int main(int argc, char** argv) {
     }
 
     updatePaddleAI(rightPaddle, ball.getY(), gameHeight, deltaTime);
-    updateBall(ball, leftPaddle, rightPaddle, deltaTime);
+    updateBall(ball, leftPaddle, rightPaddle, deltaTime, gameWidth, gameHeight);
 
     ballShape.setPosition(ball.getX(), ball.getY());
     leftPaddleShape.setPosition(leftPaddle.getX(), leftPaddle.getY());

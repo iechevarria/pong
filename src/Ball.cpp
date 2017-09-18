@@ -17,6 +17,14 @@ void Ball::setAngle (float angle) {
   this -> angle = angle;
 };
 
+void Ball::setY (float y) {
+  this -> y = y;
+}
+
+void Ball::setX (float x) {
+  this -> x = x;
+}
+
 float Ball::getX () {
   return x;
 };
