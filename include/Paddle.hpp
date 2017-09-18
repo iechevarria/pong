@@ -5,15 +5,20 @@
 
 class Paddle {
   private:
-    int x;
-    int y;
+    float x;
+    float y;
     int height;
-    int speed;
+    int width;
+    float speed;
   public:
     Paddle (void) {};
-    void set (int x, int y, int height, int speed);
-    void move (int x);
-    std::vector<int> getPosition();
+    void set (float x, float y, int height, int width, float speed);
+    void move (float y);
+    int getWidth();
+    int getHeight();
+    float getX ();
+    float getY ();
+    float getSpeed ();
 };
 
 #endif

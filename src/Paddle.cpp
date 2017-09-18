@@ -1,19 +1,33 @@
 #include "Paddle.hpp"
 
-void Paddle::set (int x, int y, int height, int speed) {
+void Paddle::set (float x, float y, int height, int width, float speed) {
   this -> x = x;
   this -> y = y;
   this -> height = height;
+  this -> width = width;
   this -> speed = speed;
 };
 
-void Paddle::move (int y) {
-  this -> y = y;
+void Paddle::move (float y) {
+  this -> y += y;
 };
 
-std::vector<int> Paddle::getPosition () {
-  std::vector<int> result;
-  result[0] = x;
-  result[1] = y;
-  return result;
+float Paddle::getX () {
+  return x;
+};
+
+float Paddle::getY() {
+  return y;
+};
+
+float Paddle::getSpeed() {
+  return speed;
+};
+
+int Paddle::getWidth () {
+  return width;
+}
+
+int Paddle::getHeight () {
+  return height;
 }
