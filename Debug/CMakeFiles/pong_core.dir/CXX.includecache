@@ -7,12 +7,8 @@
 #IncludeRegexTransform: 
 
 ../include/Ball.hpp
-vector
--
 
 ../include/Paddle.hpp
-vector
--
 
 /home/f85/iechevar/Documents/CSCI 437/pong/src/Ball.cpp
 Ball.hpp

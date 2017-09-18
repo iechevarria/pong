@@ -1,8 +1,6 @@
 #ifndef PADDLE_HPP
 #define PADDLE_HPP
 
-#include <vector>
-
 class Paddle {
   private:
     float x;

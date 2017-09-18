@@ -1,8 +1,6 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
-#include <vector>
-
 class Ball {
   private:
     float x;

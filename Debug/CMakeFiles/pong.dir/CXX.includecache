@@ -7,12 +7,8 @@
 #IncludeRegexTransform: 
 
 ../include/Ball.hpp
-vector
--
 
 ../include/Paddle.hpp
-vector
--
 
 /home/f85/iechevar/Documents/CSCI 437/SFML/include/SFML/Config.hpp
 TargetConditionals.h
@@ -654,7 +650,7 @@ SFML/Graphics.hpp
 stdlib.h
 -
 Paddle.hpp
--
+/home/f85/iechevar/Documents/CSCI 437/pong/bin/Paddle.hpp
 Ball.hpp
--
+/home/f85/iechevar/Documents/CSCI 437/pong/bin/Ball.hpp
 
