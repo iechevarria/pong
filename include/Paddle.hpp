@@ -14,11 +14,11 @@ class Paddle {
     Paddle (void) {};
     void set (float x, float y, int height, int width, float speed);
     void move (float y);
-    int getWidth();
-    int getHeight();
-    float getX ();
-    float getY ();
-    float getSpeed ();
+    int getWidth (void);
+    int getHeight (void);
+    float getX (void);
+    float getY (void);
+    float getSpeed (void);
 };
 
 #endif

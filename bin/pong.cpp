@@ -1,61 +1,74 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <cmath>
-#include <ctime>
-#include <cstdlib>
 
 #include <Paddle.hpp>
+#include <Ball.hpp>
 
-int main(int argc, char** argv)
-{
+
+sf::RectangleShape makePaddleShape (Paddle paddle) {
+  sf::RectangleShape paddleShape;
+  paddleShape.setSize(sf::Vector2f(paddle.getWidth(), paddle.getHeight()));
+  paddleShape.setFillColor(sf::Color(255, 255, 255));
+  paddleShape.setOrigin(paddle.getWidth() / 2.f, paddle.getHeight()/ 2.f);
+  paddleShape.setPosition(paddle.getX(), paddle.getY());
+  return paddleShape;
+}
+
+void updatePaddleAI (Paddle& paddle, float ballY, int gameHeight, float deltaTime) {
+  if ((paddle.getY() > ballY - 10) &&
+    (paddle.getY() - paddle.getHeight() / 2 > 5.f)) {
+    paddle.move(-paddle.getSpeed() * deltaTime);
+  } else if ((paddle.getY() < ballY + 10) &&
+    (paddle.getY() + paddle.getHeight() / 2 < gameHeight - 5.f)) {
+    paddle.move(paddle.getSpeed() * deltaTime);
+  }
+}
+
+void updateBall (Ball& ball, Paddle rightPaddle, Paddle leftPaddle, float deltaTime) {
+  ball.move(cos(ball.getAngle()) * ball.getSpeed() * deltaTime, sin(ball.getAngle()) * ball.getSpeed() * deltaTime);
+}
+
+int main(int argc, char** argv) {
   // create main window
   int gameHeight = 600;
   int gameWidth = 800;
+  sf::RenderWindow ctx(sf::VideoMode(gameWidth, gameHeight, 32), "Super Pong 3000", sf::Style::Titlebar | sf::Style::Close);
 
-  sf::RenderWindow App(sf::VideoMode(gameWidth, gameHeight, 32), "Super Pong 3000", sf::Style::Titlebar | sf::Style::Close);
-
-  // make paddles
+  // make paddles, paddle shapes
   Paddle leftPaddle;
   Paddle rightPaddle;
   leftPaddle.set(10, gameHeight / 2, 60, 10, 400.f);
   rightPaddle.set(gameWidth - 10, gameHeight / 2, 60, 10, 300.f);
+  sf::RectangleShape leftPaddleShape = makePaddleShape(leftPaddle);
+  sf::RectangleShape rightPaddleShape = makePaddleShape(rightPaddle);
+
+  // make ball, ball shapes
+  Ball ball;
+  ball.set(gameWidth / 2, gameHeight / 2, 800.f, 0.1, 5);
+  sf::CircleShape ballShape;
+  ballShape.setRadius(ball.getRadius());
+  ballShape.setOrigin(ball.getRadius(), ball.getRadius());
+  ballShape.setFillColor(sf::Color(255, 255, 255));
+  ballShape.setPosition(ball.getX(), ball.getY());
 
   sf::Clock clock;
 
-  sf::RectangleShape leftPaddleShape;
-  leftPaddleShape.setSize(sf::Vector2f(leftPaddle.getWidth(), leftPaddle.getHeight()));
-  leftPaddleShape.setFillColor(sf::Color(255, 255, 255));
-  leftPaddleShape.setOrigin(leftPaddle.getWidth() / 2.f, leftPaddle.getHeight()/ 2.f);
-  leftPaddleShape.setPosition(leftPaddle.getX(), leftPaddle.getY());
-
-  sf::RectangleShape rightPaddleShape;
-  rightPaddleShape.setSize(sf::Vector2f(rightPaddle.getWidth(), rightPaddle.getHeight()));
-  rightPaddleShape.setFillColor(sf::Color(255, 255, 255));
-  rightPaddleShape.setOrigin(rightPaddle.getWidth() / 2.f, rightPaddle.getHeight() / 2.f);
-  rightPaddleShape.setPosition(rightPaddle.getX(), rightPaddle.getY());
-
-  sf::CircleShape ballShape;
-  ballShape.setRadius(5);
-  ballShape.setFillColor(sf::Color(255, 255, 255));
-  ballShape.setPosition(400,300);
-
   // start main loop
-  while(App.isOpen())
+  while(ctx.isOpen())
   {
 
     // process events
     sf::Event Event;
-    while(App.pollEvent(Event))
+    while(ctx.pollEvent(Event))
     {
       // exit
       if ((Event.type == sf::Event::Closed) ||
          ((Event.type == sf::Event::KeyPressed) && ((Event.key.code == sf::Keyboard::Escape) || (Event.key.code == sf::Keyboard::Q))))
-        App.close();
+        ctx.close();
     }
 
     float deltaTime = clock.restart().asSeconds();
 
-    // move left paddle
+    // get input for left paddle
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
         (leftPaddle.getY() - leftPaddle.getHeight() / 2 > 5.f))
     {
@@ -67,15 +80,19 @@ int main(int argc, char** argv)
         leftPaddle.move(leftPaddle.getSpeed() * deltaTime);
     }
 
+    updatePaddleAI(rightPaddle, ball.getY(), gameHeight, deltaTime);
+    updateBall(ball, leftPaddle, rightPaddle, deltaTime);
+
+    ballShape.setPosition(ball.getX(), ball.getY());
     leftPaddleShape.setPosition(leftPaddle.getX(), leftPaddle.getY());
+    rightPaddleShape.setPosition(rightPaddle.getX(), rightPaddle.getY());
 
-    App.clear(sf::Color::Black);
-    App.draw(leftPaddleShape);
-    App.draw(rightPaddleShape);
-    App.draw(ballShape);
-    App.display();
+    ctx.clear(sf::Color::Black);
+    ctx.draw(leftPaddleShape);
+    ctx.draw(rightPaddleShape);
+    ctx.draw(ballShape);
+    ctx.display();
   }
-
 
   // Done.
   return 0;

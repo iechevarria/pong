@@ -81,17 +81,43 @@ CMakeFiles/pong_core.dir/src/Paddle.cpp.o.provides: CMakeFiles/pong_core.dir/src
 CMakeFiles/pong_core.dir/src/Paddle.cpp.o.provides.build: CMakeFiles/pong_core.dir/src/Paddle.cpp.o
 
 
+CMakeFiles/pong_core.dir/src/Ball.cpp.o: CMakeFiles/pong_core.dir/flags.make
+CMakeFiles/pong_core.dir/src/Ball.cpp.o: ../src/Ball.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/f85/iechevar/Documents/CSCI 437/pong/Debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pong_core.dir/src/Ball.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pong_core.dir/src/Ball.cpp.o -c "/home/f85/iechevar/Documents/CSCI 437/pong/src/Ball.cpp"
+
+CMakeFiles/pong_core.dir/src/Ball.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pong_core.dir/src/Ball.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/f85/iechevar/Documents/CSCI 437/pong/src/Ball.cpp" > CMakeFiles/pong_core.dir/src/Ball.cpp.i
+
+CMakeFiles/pong_core.dir/src/Ball.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pong_core.dir/src/Ball.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/f85/iechevar/Documents/CSCI 437/pong/src/Ball.cpp" -o CMakeFiles/pong_core.dir/src/Ball.cpp.s
+
+CMakeFiles/pong_core.dir/src/Ball.cpp.o.requires:
+
+.PHONY : CMakeFiles/pong_core.dir/src/Ball.cpp.o.requires
+
+CMakeFiles/pong_core.dir/src/Ball.cpp.o.provides: CMakeFiles/pong_core.dir/src/Ball.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pong_core.dir/build.make CMakeFiles/pong_core.dir/src/Ball.cpp.o.provides.build
+.PHONY : CMakeFiles/pong_core.dir/src/Ball.cpp.o.provides
+
+CMakeFiles/pong_core.dir/src/Ball.cpp.o.provides.build: CMakeFiles/pong_core.dir/src/Ball.cpp.o
+
+
 # Object files for target pong_core
 pong_core_OBJECTS = \
-"CMakeFiles/pong_core.dir/src/Paddle.cpp.o"
+"CMakeFiles/pong_core.dir/src/Paddle.cpp.o" \
+"CMakeFiles/pong_core.dir/src/Ball.cpp.o"
 
 # External object files for target pong_core
 pong_core_EXTERNAL_OBJECTS =
 
 libpong_core.a: CMakeFiles/pong_core.dir/src/Paddle.cpp.o
+libpong_core.a: CMakeFiles/pong_core.dir/src/Ball.cpp.o
 libpong_core.a: CMakeFiles/pong_core.dir/build.make
 libpong_core.a: CMakeFiles/pong_core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/f85/iechevar/Documents/CSCI 437/pong/Debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libpong_core.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/f85/iechevar/Documents/CSCI 437/pong/Debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libpong_core.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/pong_core.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pong_core.dir/link.txt --verbose=$(VERBOSE)
 
@@ -101,6 +127,7 @@ CMakeFiles/pong_core.dir/build: libpong_core.a
 .PHONY : CMakeFiles/pong_core.dir/build
 
 CMakeFiles/pong_core.dir/requires: CMakeFiles/pong_core.dir/src/Paddle.cpp.o.requires
+CMakeFiles/pong_core.dir/requires: CMakeFiles/pong_core.dir/src/Ball.cpp.o.requires
 
 .PHONY : CMakeFiles/pong_core.dir/requires
 
