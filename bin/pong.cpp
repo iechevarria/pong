@@ -5,6 +5,12 @@
 #include "Ball.hpp"
 #include "GameState.hpp"
 
+/**
+  Uses Paddle objects to make shapes for drawing
+
+  @param paddle is the paddle that will be drawn
+  @return an sf::RectangleShape to be used later for drawing
+*/
 sf::RectangleShape makePaddleShape (Paddle paddle) {
   sf::RectangleShape paddleShape;
   paddleShape.setSize(sf::Vector2f(paddle.getWidth(), paddle.getHeight()));
@@ -14,6 +20,21 @@ sf::RectangleShape makePaddleShape (Paddle paddle) {
   return paddleShape;
 }
 
+/**
+  Uses ball object to make circles for drawing
+
+  @param ball is the ball that will be drawing
+  @return an sf::CircleShape to be drawn later
+*/
+sf::CircleShape makeBallShape (Ball ball) {
+  sf::CircleShape ballShape;
+  ballShape.setRadius(ball.getRadius());
+  ballShape.setOrigin(ball.getRadius(), ball.getRadius());
+  ballShape.setFillColor(sf::Color(255, 255, 255));
+  ballShape.setPosition(ball.getX(), ball.getY());
+  return ballShape;
+}
+
 int main(int argc, char** argv) {
 
   // create main window
@@ -21,31 +42,20 @@ int main(int argc, char** argv) {
   int gameWidth = 800;
   sf::RenderWindow ctx(sf::VideoMode(gameWidth, gameHeight, 32), "Super Pong 3000", sf::Style::Titlebar | sf::Style::Close);
 
-  // make paddles, paddle shapes
-  Paddle leftPaddle;
-  Paddle rightPaddle;
-  leftPaddle.set(10, gameHeight / 2, 60, 10, 400.f);
-  rightPaddle.set(gameWidth - 10, gameHeight / 2, 60, 10, 250.f);
-  sf::RectangleShape leftPaddleShape = makePaddleShape(leftPaddle);
-  sf::RectangleShape rightPaddleShape = makePaddleShape(rightPaddle);
-
+  // create game state
   GameState state;
+  state.init(gameWidth, gameHeight);
 
-
-  // make ball, ball shapes
-  Ball ball;
-  ball.set(gameWidth / 2, gameHeight / 2, 800.f, 2*3.14159, 5);
-  sf::CircleShape ballShape;
-  ballShape.setRadius(ball.getRadius());
-  ballShape.setOrigin(ball.getRadius(), ball.getRadius());
-  ballShape.setFillColor(sf::Color(255, 255, 255));
-  ballShape.setPosition(ball.getX(), ball.getY());
+  // create shapes to draw
+  sf::RectangleShape leftPaddleShape = makePaddleShape(state.getLeftPaddle());
+  sf::RectangleShape rightPaddleShape = makePaddleShape(state.getRightPaddle());
+  sf::CircleShape ballShape = makeBallShape(state.getBall());
 
   sf::Clock clock;
 
+
   // start main loop
-  while(ctx.isOpen())
-  {
+  while(ctx.isOpen()) {
 
     // process events
     sf::Event Event;
@@ -61,22 +71,21 @@ int main(int argc, char** argv) {
 
     // get input for left paddle
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-        (leftPaddle.getY() - leftPaddle.getHeight() / 2 > 5.f))
+        (state.getLeftPaddle().getY() - state.getLeftPaddle().getHeight() / 2 > 5.f))
     {
-        leftPaddle.move(-leftPaddle.getSpeed() * timePassed);
+        state.moveLeftPaddle(-state.getLeftPaddle().getSpeed() * timePassed);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-        (leftPaddle.getY() + leftPaddle.getHeight() / 2 < gameHeight - 5.f))
+        (state.getLeftPaddle().getY() + state.getLeftPaddle().getHeight() / 2 < gameHeight - 5.f))
     {
-        leftPaddle.move(leftPaddle.getSpeed() * timePassed);
+        state.moveLeftPaddle(state.getLeftPaddle().getSpeed() * timePassed);
     }
 
-    state.updatePaddleAI(rightPaddle, ball.getY(), ball.getX(), gameHeight, gameWidth, timePassed);
-    state.updateBall(ball, leftPaddle, rightPaddle, timePassed, gameWidth, gameHeight);
+    state.update(timePassed, gameWidth, gameHeight);
 
-    ballShape.setPosition(ball.getX(), ball.getY());
-    leftPaddleShape.setPosition(leftPaddle.getX(), leftPaddle.getY());
-    rightPaddleShape.setPosition(rightPaddle.getX(), rightPaddle.getY());
+    ballShape.setPosition(state.getBall().getX(), state.getBall().getY());
+    leftPaddleShape.setPosition(state.getLeftPaddle().getX(), state.getLeftPaddle().getY());
+    rightPaddleShape.setPosition(state.getRightPaddle().getX(), state.getRightPaddle().getY());
 
     ctx.clear(sf::Color::Black);
     ctx.draw(leftPaddleShape);
