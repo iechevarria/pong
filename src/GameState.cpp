@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include "GameState.hpp"
 #include <stdlib.h>
+#include "GameState.hpp"
 
 void GameState::updatePaddleAI (float timePassed, int gameWidth, int gameHeight) {
   if (ball.getX() > gameWidth / 5 &&

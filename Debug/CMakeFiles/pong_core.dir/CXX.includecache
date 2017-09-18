@@ -14,6 +14,14 @@ Paddle.hpp
 Ball.hpp
 ../include/Ball.hpp
 
+../include/GameView.hpp
+SFML/Graphics.hpp
+-
+Paddle.hpp
+../include/Paddle.hpp
+Ball.hpp
+../include/Ball.hpp
+
 ../include/Paddle.hpp
 
 /home/f85/iechevar/Documents/CSCI 437/SFML/include/SFML/Config.hpp
@@ -657,10 +665,14 @@ Ball.hpp
 /home/f85/iechevar/Documents/CSCI 437/pong/src/GameState.cpp
 SFML/Graphics.hpp
 -
-GameState.hpp
-/home/f85/iechevar/Documents/CSCI 437/pong/src/GameState.hpp
 stdlib.h
 -
+GameState.hpp
+/home/f85/iechevar/Documents/CSCI 437/pong/src/GameState.hpp
+
+/home/f85/iechevar/Documents/CSCI 437/pong/src/GameView.cpp
+GameView.hpp
+/home/f85/iechevar/Documents/CSCI 437/pong/src/GameView.hpp
 
 /home/f85/iechevar/Documents/CSCI 437/pong/src/Paddle.cpp
 Paddle.hpp
