@@ -15,6 +15,7 @@ class GameState {
     void updateBall (float, int, int);
     void addLeftPoint ();
     void addRightPoint ();
+    char status;
   public:
     GameState (void) {};
     void init (int, int);
@@ -25,6 +26,8 @@ class GameState {
     Ball getBall ();
     void moveLeftPaddle (float);
     void update (float, int, int);
+    void keyIn (char, float);
+    char getStatus ();
 };
 
 #endif

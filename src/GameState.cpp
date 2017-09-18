@@ -46,14 +46,22 @@ void GameState::updateBall (float timePassed, int gameWidth, int gameHeight) {
       ball.getX() - ball.getRadius() > leftPaddle.getX() &&
       ball.getY() + ball.getRadius() >= leftPaddle.getY() - leftPaddle.getHeight() / 2 &&
       ball.getY() - ball.getRadius() <= leftPaddle.getY() + leftPaddle.getHeight() / 2) {
-        ball.setAngle(3.14159 - ball.getAngle() - (10.f * 3.14159 / 180.f) + float(std::rand() % 20) * 3.14159 / 180.f);
-        ball.setX(leftPaddle.getX() + ball.getRadius() + leftPaddle.getWidth() / 2  + 1);
+        ball.setAngle(3.14159 - ball.getAngle() - (12.5 * 3.14159 / 180.0) + (std::rand() % 25) * 3.14159 / 180.0);
+        ball.setX(leftPaddle.getX() + ball.getRadius() + leftPaddle.getWidth() / 2  + 0.1);
   } else if (ball.getX() + ball.getRadius() > rightPaddle.getX() - rightPaddle.getWidth() / 2 &&
              ball.getX() + ball.getRadius() < rightPaddle.getX() &&
              ball.getY() + ball.getRadius() >= rightPaddle.getY() - rightPaddle.getHeight() / 2 &&
              ball.getY() - ball.getRadius() <= rightPaddle.getY() + rightPaddle.getHeight() / 2) {
-        ball.setAngle(3.14159 - ball.getAngle() - (10.f * 3.14159 / 180.f) + float(std::rand() % 20) * 3.14159 / 180.f);
-        ball.setX(rightPaddle.getX() - ball.getRadius() - rightPaddle.getWidth() / 2 - 1);
+        ball.setAngle(3.14159 - ball.getAngle() - (12.5 * 3.14159 / 180.0) + float(std::rand() % 25) * 3.14159 / 180.0);
+        ball.setX(rightPaddle.getX() - ball.getRadius() - rightPaddle.getWidth() / 2 - 0.1);
+  }
+  // check for ball out-of-bounds
+  if (ball.getX() < -400) {
+    addRightPoint();
+    ball.set(gameWidth / 2, gameHeight / 2, ball.getSpeed(), 2 * 3.14159, ball.getRadius());
+  } else if (ball.getX() > gameWidth + 400) {
+    addLeftPoint();
+    ball.set(gameWidth / 2, gameHeight / 2, ball.getSpeed(), 2 * 3.14159, ball.getRadius()) ;
   }
 };
 
@@ -83,6 +91,7 @@ void GameState::init (int gameWidth, int gameHeight) {
   this -> ball.set(gameWidth / 2, gameHeight / 2, 800.f, 2*3.14159, 5);
   this -> leftPoints = 0;
   this -> rightPoints = 0;
+  status = 'P';
 };
 
 /**
@@ -130,8 +139,16 @@ void GameState::moveLeftPaddle (float y) {
   @param gameHeight
 */
 void GameState::update (float timePassed, int gameWidth, int gameHeight) {
-  this -> updatePaddleAI(timePassed, gameWidth, gameHeight);
-  this -> updateBall(timePassed, gameWidth, gameHeight);
+  if (status = 'P') {
+    this -> updatePaddleAI(timePassed, gameWidth, gameHeight);
+    this -> updateBall(timePassed, gameWidth, gameHeight);
+  }
+  if (rightPoints > 10) {
+    status = 'L';
+  }
+  if (leftPoints > 10) {
+    status = 'W';
+  }
 }
 
 /**
@@ -139,4 +156,26 @@ void GameState::update (float timePassed, int gameWidth, int gameHeight) {
 */
 Ball GameState::getBall () {
   return ball;
+}
+
+/**
+*/
+void GameState::keyIn (char key, float timePassed) {
+  if (status == 'P') {
+    if (key == 'U' &&
+        leftPaddle.getY() - leftPaddle.getHeight() / 2 > 5.f)  {
+      leftPaddle.move(-leftPaddle.getSpeed() * timePassed);
+    } else if (key == 'D' &&
+      leftPaddle.getY() + leftPaddle.getHeight() / 2 < 600 - 5.f) {
+      leftPaddle.move(leftPaddle.getSpeed() * timePassed);
+    }
+  } else if (status == 'W' || status == 'L') {
+    if (key == 'R') {
+      init(800, 600);
+    }
+  }
+}
+
+char GameState::getStatus () {
+  return status;
 }

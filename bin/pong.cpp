@@ -25,21 +25,23 @@ int main(int argc, char** argv) {
 
     float timePassed = timer.restart().asSeconds();
 
-    // handle input for the left paddle
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-        (state.getLeftPaddle().getY() - state.getLeftPaddle().getHeight() / 2 > 5.f))
-    {
-        state.moveLeftPaddle(-state.getLeftPaddle().getSpeed() * timePassed);
+    // handle keyboard input
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        state.keyIn('U', timePassed);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-        (state.getLeftPaddle().getY() + state.getLeftPaddle().getHeight() / 2 < gameHeight - 5.f))
-    {
-        state.moveLeftPaddle(state.getLeftPaddle().getSpeed() * timePassed);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        state.keyIn('D', timePassed);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+        state.keyIn('R', timePassed);
     }
 
+
     state.update(timePassed, gameWidth, gameHeight);
-    view.draw(state.getLeftPaddle(), state.getRightPaddle(), state.getBall());
+    view.draw(state.getLeftPaddle(), state.getRightPaddle(), state.getBall(), state.getLeftPoints(), state.getRightPoints(), state.getStatus());
   }
 
   return 0;
 }
+
+//sf::Font font

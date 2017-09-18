@@ -61,18 +61,63 @@ void GameView::init (Paddle leftPaddle, Paddle rightPaddle, Ball ball) {
   @param rightPaddle to update and draw
   @param ball to update and draw
 */
-void GameView::draw (Paddle leftPaddle, Paddle rightPaddle, Ball ball) {
+void GameView::draw (Paddle leftPaddle, Paddle rightPaddle, Ball ball, int leftPoints, int rightPoints, char status) {
   checkActive();
+  sf::Font font;
+  if (!font.loadFromFile("../src/Roboto-Medium.ttf")) {
+    ballShape.setFillColor(sf::Color(0, 0, 255));
+  }
 
-  ballShape.setPosition(ball.getX(), ball.getY());
-  leftPaddleShape.setPosition(leftPaddle.getX(), leftPaddle.getY());
-  rightPaddleShape.setPosition(rightPaddle.getX(), rightPaddle.getY());
+  if (status == 'P') {
+    ballShape.setPosition(ball.getX(), ball.getY());
+    leftPaddleShape.setPosition(leftPaddle.getX(), leftPaddle.getY());
+    rightPaddleShape.setPosition(rightPaddle.getX(), rightPaddle.getY());
 
-  ctx.clear(sf::Color::Blue);
-  ctx.draw(leftPaddleShape);
-  ctx.draw(rightPaddleShape);
-  ctx.draw(ballShape);
-  ctx.display();
+    ctx.clear(sf::Color::Black);
+
+    sf::Text lp;
+    lp.setFont(font);
+    lp.setString(std::to_string(leftPoints));
+    lp.setColor(sf::Color(255, 255, 255));
+    lp.setCharacterSize(40);
+    lp.setPosition(180,100);
+    ctx.draw(lp);
+
+    sf::Text rp;
+    rp.setFont(font);
+    rp.setString(std::to_string(rightPoints));
+    rp.setColor(sf::Color(255, 255, 255));
+    rp.setCharacterSize(40);
+    rp.setPosition(590,100);
+    ctx.draw(rp);
+
+    ctx.draw(leftPaddleShape);
+    ctx.draw(rightPaddleShape);
+    ctx.draw(ballShape);
+    ctx.display();
+
+  } else if (status == 'W') {
+    ctx.clear(sf::Color::Black);
+    sf::Text win;
+    win.setFont(font);
+    win.setString("You win!\nPress R to restart\nPress Q to quit");
+    win.setColor(sf::Color(255, 255, 255));
+    win.setCharacterSize(40);
+    win.setPosition(230,150);
+    ctx.draw(win);
+    ctx.display();
+    
+  } else if (status == 'L') {
+    ctx.clear(sf::Color::Black);
+    sf::Text lose;
+    lose.setFont(font);
+    lose.setString("You lose.\nPress R to restart\nPress Q to quit");
+    lose.setColor(sf::Color(255, 255, 255));
+    lose.setCharacterSize(40);
+    lose.setPosition(230,150);
+    ctx.draw(lose);
+    ctx.display();
+  }
 }
 
 /**
@@ -91,7 +136,7 @@ void GameView::checkActive () {
 /**
   Checks if window is open
 
-  @return bool 
+  @return bool
 */
 bool GameView::isOpen () {
   return ctx.isOpen();

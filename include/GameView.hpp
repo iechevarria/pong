@@ -19,7 +19,7 @@ class GameView {
   public:
     GameView (int, int);
     void init (Paddle, Paddle, Ball);
-    void draw (Paddle, Paddle, Ball);
+    void draw (Paddle, Paddle, Ball, int, int, char);
     bool isOpen ();
 };
 
