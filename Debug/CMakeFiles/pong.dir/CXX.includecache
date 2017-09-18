@@ -8,6 +8,12 @@
 
 ../include/Ball.hpp
 
+../include/GameState.hpp
+Paddle.hpp
+../include/Paddle.hpp
+Ball.hpp
+../include/Ball.hpp
+
 ../include/Paddle.hpp
 
 /home/f85/iechevar/Documents/CSCI 437/SFML/include/SFML/Config.hpp
@@ -653,4 +659,6 @@ Paddle.hpp
 /home/f85/iechevar/Documents/CSCI 437/pong/bin/Paddle.hpp
 Ball.hpp
 /home/f85/iechevar/Documents/CSCI 437/pong/bin/Ball.hpp
+GameState.hpp
+/home/f85/iechevar/Documents/CSCI 437/pong/bin/GameState.hpp
 

@@ -3,6 +3,7 @@
 
 CMakeFiles/pong.dir/bin/pong.cpp.o
  ../include/Ball.hpp
+ ../include/GameState.hpp
  ../include/Paddle.hpp
  /home/f85/iechevar/Documents/CSCI 437/SFML/include/SFML/Config.hpp
  /home/f85/iechevar/Documents/CSCI 437/SFML/include/SFML/Graphics.hpp

@@ -3,6 +3,7 @@
 
 #include "Paddle.hpp"
 #include "Ball.hpp"
+#include "GameState.hpp"
 
 sf::RectangleShape makePaddleShape (Paddle paddle) {
   sf::RectangleShape paddleShape;
@@ -11,50 +12,6 @@ sf::RectangleShape makePaddleShape (Paddle paddle) {
   paddleShape.setOrigin(paddle.getWidth() / 2.f, paddle.getHeight()/ 2.f);
   paddleShape.setPosition(paddle.getX(), paddle.getY());
   return paddleShape;
-}
-
-void updatePaddleAI (Paddle& paddle, float ballY, float ballX, int gameHeight, int gameWidth, float timePassed) {
-  if (ballX > gameWidth / 5 &&
-      ballX < gameWidth) {
-    // check if the right paddle is lower on the screen than the ball
-    if (paddle.getY() > ballY + 10 &&
-      paddle.getY() - paddle.getHeight() / 2 > 5.f) {
-      paddle.move(-paddle.getSpeed() * timePassed);
-    // check if right paddle is higher on the screen than the ball
-    } else if ((paddle.getY() < ballY - 10) &&
-      (paddle.getY() + paddle.getHeight() / 2 < gameHeight - 5.f)) {
-      paddle.move(paddle.getSpeed() * timePassed);
-    }
-  }
-}
-
-void updateBall (Ball& ball, Paddle leftPaddle, Paddle rightPaddle, float timePassed, int gameWidth, int gameHeight) {
-  // move ball
-  ball.move(cos(ball.getAngle()) * ball.getSpeed() * timePassed, sin(ball.getAngle()) * ball.getSpeed() * timePassed);
-  // check for collisions at top of the screen
-  if (ball.getY() - ball.getRadius() < 0) {
-    ball.setAngle(-ball.getAngle());
-    ball.setY(ball.getRadius() + 0.1);
-  // check for collisions at bottom of the screen
-  } else if (ball.getY() + ball.getRadius() > gameHeight) {
-    ball.setAngle(-ball.getAngle());
-    ball.setY(ball.getY() - ball.getRadius() - 0.1);
-  }
-  // check for left paddle collisions
-  if (ball.getX() - ball.getRadius() < leftPaddle.getX() + leftPaddle.getWidth() / 2 &&
-      ball.getX() - ball.getRadius() > leftPaddle.getX() &&
-      ball.getY() + ball.getRadius() >= leftPaddle.getY() - leftPaddle.getHeight() / 2 &&
-      ball.getY() - ball.getRadius() <= leftPaddle.getY() + leftPaddle.getHeight() / 2) {
-        ball.setAngle(3.14159 - ball.getAngle() - (10 * 3.14159 / 180) + (std::rand() % 20) * 3.14159 / 180);
-        ball.setX(leftPaddle.getX() + ball.getRadius() + leftPaddle.getWidth() / 2  + 1);
-  // check for right paddle collisions
-  } else if (ball.getX() + ball.getRadius() > rightPaddle.getX() - rightPaddle.getWidth() / 2 &&
-             ball.getX() + ball.getRadius() < rightPaddle.getX() &&
-             ball.getY() + ball.getRadius() >= rightPaddle.getY() - rightPaddle.getHeight() / 2 &&
-             ball.getY() - ball.getRadius() <= rightPaddle.getY() + rightPaddle.getHeight() / 2) {
-        ball.setAngle(3.14159 - ball.getAngle() - (10 * 3.14159 / 180) + (std::rand() % 20) * 3.14159 / 180);
-        ball.setX(rightPaddle.getX() - ball.getRadius() - rightPaddle.getWidth() / 2 - 1);
-  }
 }
 
 int main(int argc, char** argv) {
@@ -72,8 +29,8 @@ int main(int argc, char** argv) {
   sf::RectangleShape leftPaddleShape = makePaddleShape(leftPaddle);
   sf::RectangleShape rightPaddleShape = makePaddleShape(rightPaddle);
 
-  //GameState state;
-  //state.init(rightPaddle)
+  GameState state;
+
 
   // make ball, ball shapes
   Ball ball;
@@ -114,9 +71,8 @@ int main(int argc, char** argv) {
         leftPaddle.move(leftPaddle.getSpeed() * timePassed);
     }
 
-    updatePaddleAI(rightPaddle, ball.getY(), ball.getX(), gameHeight, gameWidth, timePassed);
-    updateBall(ball, leftPaddle, rightPaddle, timePassed, gameWidth, gameHeight);
-
+    state.updatePaddleAI(rightPaddle, ball.getY(), ball.getX(), gameHeight, gameWidth, timePassed);
+    state.updateBall(ball, leftPaddle, rightPaddle, timePassed, gameWidth, gameHeight);
 
     ballShape.setPosition(ball.getX(), ball.getY());
     leftPaddleShape.setPosition(leftPaddle.getX(), leftPaddle.getY());
