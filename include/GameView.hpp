@@ -15,7 +15,7 @@ class GameView {
     sf::RectangleShape makePaddleShape (Paddle);
     sf::CircleShape makeBallShape (Ball);
     void checkActive ();
-    
+
   public:
     GameView (int, int);
     void init (Paddle, Paddle, Ball);

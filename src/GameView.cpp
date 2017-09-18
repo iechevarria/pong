@@ -30,17 +30,37 @@ sf::CircleShape GameView::makeBallShape (Ball ball) {
   return ballShape;
 }
 
-GameView::GameView (int width, int height)
-  : ctx(sf::VideoMode(width, height, 32), "Pooper Pong 2000", sf::Style::Titlebar | sf::Style::Close)
+/**
+  GameView constructor that creates the game window
+
+  @param gameWidth to set window width
+  @param gameHeight to set window height
+*/
+GameView::GameView (int gameWidth, int gameHeight)
+  : ctx(sf::VideoMode(gameWidth, gameHeight, 32), "Super Pong 3000", sf::Style::Titlebar | sf::Style::Close)
 {
 }
 
+/**
+  Initializes shapes for drawing
+
+  @param leftPaddle for drawing
+  @param rightPaddle for drawing
+  @param ball for drawing
+*/
 void GameView::init (Paddle leftPaddle, Paddle rightPaddle, Ball ball) {
-  this -> leftPaddleShape = makePaddleShape(leftPaddle);
-  this -> rightPaddleShape = makePaddleShape(rightPaddle);
-  this -> ballShape = makeBallShape(ball);
+  leftPaddleShape = makePaddleShape(leftPaddle);
+  rightPaddleShape = makePaddleShape(rightPaddle);
+  ballShape = makeBallShape(ball);
 }
 
+/**
+  Updates shape locations and draws
+
+  @param leftPaddle to update and draw
+  @param rightPaddle to update and draw
+  @param ball to update and draw
+*/
 void GameView::draw (Paddle leftPaddle, Paddle rightPaddle, Ball ball) {
   checkActive();
 
@@ -49,12 +69,15 @@ void GameView::draw (Paddle leftPaddle, Paddle rightPaddle, Ball ball) {
   rightPaddleShape.setPosition(rightPaddle.getX(), rightPaddle.getY());
 
   ctx.clear(sf::Color::Blue);
-  ctx.draw(this -> leftPaddleShape);
-  ctx.draw(this -> rightPaddleShape);
-  ctx.draw(this -> ballShape);
+  ctx.draw(leftPaddleShape);
+  ctx.draw(rightPaddleShape);
+  ctx.draw(ballShape);
   ctx.display();
 }
 
+/**
+  Closes window when the user exits
+*/
 void GameView::checkActive () {
   sf::Event Event;
   while(ctx.pollEvent(Event))
@@ -65,6 +88,11 @@ void GameView::checkActive () {
   }
 }
 
+/**
+  Checks if window is open
+
+  @return bool 
+*/
 bool GameView::isOpen () {
   return ctx.isOpen();
 }

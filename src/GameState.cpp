@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include "GameState.hpp"
 
+/**
+  Moves right paddle to follow the ball, with a few quirks
+
+  @param timePassed to determine the paddle's speed
+  @param gameWidth to add different behavior
+  @param gameHeight to prevent the paddle from going out of bounds
+*/
 void GameState::updatePaddleAI (float timePassed, int gameWidth, int gameHeight) {
   if (ball.getX() > gameWidth / 5 &&
       ball.getX() < gameWidth) {
@@ -17,6 +24,13 @@ void GameState::updatePaddleAI (float timePassed, int gameWidth, int gameHeight)
   }
 };
 
+/**
+  Handles collisions and boundaries for the ball
+
+  @param timePassed to determine how far the ball goes
+  @param gameWidth to determine when the ball is out of bounds
+  @param gameHeight to add collisions
+*/
 void GameState::updateBall (float timePassed, int gameWidth, int gameHeight) {
   ball.move(cos(ball.getAngle()) * ball.getSpeed() * timePassed, sin(ball.getAngle()) * ball.getSpeed() * timePassed);
   // check for screen edge collisions
@@ -43,14 +57,26 @@ void GameState::updateBall (float timePassed, int gameWidth, int gameHeight) {
   }
 };
 
+/**
+  @return leftPaddle
+*/
 Paddle GameState::getLeftPaddle () {
   return leftPaddle;
 }
 
+/**
+  @return rightPaddle
+*/
 Paddle GameState::getRightPaddle () {
   return rightPaddle;
 }
 
+/**
+  Sets all agents to beginning positions
+
+  @param gameWidth to place objects
+  @param gameHeight to place objects
+*/
 void GameState::init (int gameWidth, int gameHeight) {
   this -> leftPaddle.set(10, gameHeight / 2, 60, 10, 400.f);
   this -> rightPaddle.set(gameWidth - 10, gameHeight / 2, 60, 10, 250.f);
@@ -59,31 +85,58 @@ void GameState::init (int gameWidth, int gameHeight) {
   this -> rightPoints = 0;
 };
 
+/**
+  @return leftPoints
+*/
 int GameState::getLeftPoints () {
   return leftPoints;
 };
 
+/**
+  @return rightPoints
+*/
 int GameState::getRightPoints () {
   return rightPoints;
 };
 
+/**
+  increments points on the left
+*/
 void GameState::addLeftPoint () {
   this -> leftPoints ++;
 };
 
+/**
+  increments points on the right
+*/
 void GameState::addRightPoint () {
   this -> rightPoints ++;
 };
 
+/**
+  Moves the left paddle
+
+  @param y for the distance to move the paddle
+*/
 void GameState::moveLeftPaddle (float y) {
   leftPaddle.move(y);
 };
 
+/**
+  Updates ball and right paddle
+
+  @param timePassed
+  @param gameWidth
+  @param gameHeight
+*/
 void GameState::update (float timePassed, int gameWidth, int gameHeight) {
   this -> updatePaddleAI(timePassed, gameWidth, gameHeight);
   this -> updateBall(timePassed, gameWidth, gameHeight);
 }
 
+/**
+  @return ball
+*/
 Ball GameState::getBall () {
   return ball;
 }

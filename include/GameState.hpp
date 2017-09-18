@@ -13,14 +13,13 @@ class GameState {
     int rightPoints;
     void updatePaddleAI (float, int, int);
     void updateBall (float, int, int);
-
+    void addLeftPoint ();
+    void addRightPoint ();
   public:
     GameState (void) {};
     void init (int, int);
     int getLeftPoints ();
     int getRightPoints ();
-    void addLeftPoint ();
-    void addRightPoint ();
     Paddle getRightPaddle ();
     Paddle getLeftPaddle ();
     Ball getBall ();
