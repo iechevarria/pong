@@ -1,1 +1,3 @@
-# pong
+# pong-cpp
+
+C++ pong implementation
